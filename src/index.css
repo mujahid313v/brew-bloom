@@ -1,0 +1,129 @@
+@import "tailwindcss";
+
+/*
+  Brew & Bloom — design tokens
+  Warm editorial palette:
+  cream    #FAF5EC  (background)
+  espresso #2B1B12  (text / headings)
+  terracotta #C65D3B (accent / primary actions)
+  olive    #6B7A3A  (secondary accent)
+*/
+@theme {
+  /* Colors — exposed as CSS variables (--color-*) used by all Tailwind utilities */
+  --color-cream: #faf5ec;
+  --color-cream-dark: #f1e6d2;
+  --color-espresso: #2b1b12;
+  --color-terracotta: #c65d3b;
+  --color-olive: #6b7a3a;
+
+  /* Fonts — exposed as CSS variables (--font-*) used by font-* utilities */
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces", Georgia, serif;
+
+  /* Spacing scale base */
+  --spacing: 0.25rem;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--color-cream);
+    color: var(--color-espresso);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    color: var(--color-espresso);
+    font-weight: 600;
+    line-height: 1.08;
+  }
+
+  h1 {
+    font-size: clamp(3rem, 9vw, 4.75rem);
+  }
+  h2 {
+    font-size: clamp(2rem, 5vw, 3rem);
+  }
+  h3 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+  }
+
+  p {
+    margin: 0;
+  }
+}
+
+::selection {
+  background-color: var(--color-terracotta);
+  color: var(--color-cream);
+}
+
+/* Visible focus states for all interactive elements */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--color-terracotta);
+  outline-offset: 2px;
+}
+
+/* Subtle fade-in on scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 700ms ease,
+    transform 700ms ease;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Menu category panel entrance */
+.menu-panel {
+  animation: menu-in 350ms ease both;
+}
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
